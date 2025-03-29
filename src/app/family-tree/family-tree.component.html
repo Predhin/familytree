@@ -1,0 +1,56 @@
+<p-organizationChart
+  [value]="familyTree()"
+  [collapsible]="true"
+  selectionMode="single"
+  (onNodeSelect)="onNodeSelect($event)"
+  [draggable]="true"
+  (onNodeDrop)="onNodeDrop($event)"
+>
+  <ng-template let-node pTemplate="default">
+    <div class="family-node">
+      <i class="pi pi-user" style="font-size: 2rem; color: #007bff;"></i>
+      <span>{{ node.data?.husband }}</span>
+      <span>&</span>
+      <i class="pi pi-user" style="font-size: 2rem; color: #e91e63;"></i>
+      <span>{{ node.data?.wife }}</span>
+    </div>
+  </ng-template>
+</p-organizationChart>
+
+<p-dialog
+  [(visible)]="displayDialog"
+  [modal]="true"
+  [header]="isEditing ? 'Edit Member' : 'Add Member'"
+>
+  <div>
+    <label>Husband:</label>
+    <input type="text" [(ngModel)]="editForm.husband" />
+  </div>
+  <div>
+    <label>Wife:</label>
+    <input type="text" [(ngModel)]="editForm.wife" />
+  </div>
+  <!-- You can still keep upload option for future photo support -->
+  <div>
+    <p-fileUpload
+      mode="basic"
+      accept="image/*"
+      (onSelect)="onImageUpload($event, true)"
+      chooseLabel="Husband Photo"
+    ></p-fileUpload>
+  </div>
+  <div>
+    <p-fileUpload
+      mode="basic"
+      accept="image/*"
+      (onSelect)="onImageUpload($event, false)"
+      chooseLabel="Wife Photo"
+    ></p-fileUpload>
+  </div>
+  <button
+    pButton
+    type="button"
+    [label]="isEditing ? 'Save' : 'Add'"
+    (click)="isEditing ? saveMember() : addNewMember()"
+  ></button>
+</p-dialog>
