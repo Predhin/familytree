@@ -19,8 +19,8 @@ const initialTree: FamilyMemberNode = {
   data: {
     husband: 'Grandpa Joe',
     wife: 'Grandma Jane',
-    imageHusband: 'assets/male.png',
-    imageWife: 'assets/female.png'
+    imageHusband: '',
+    imageWife: ''
   },
   expanded: true,
   children: [
@@ -28,8 +28,8 @@ const initialTree: FamilyMemberNode = {
       data: {
         husband: 'Dad John',
         wife: 'Mom Emma',
-        imageHusband: 'assets/male.png',
-        imageWife: 'assets/female.png'
+        imageHusband: '',
+        imageWife: ''
       },
       expanded: true,
       children: [
@@ -37,8 +37,8 @@ const initialTree: FamilyMemberNode = {
           data: {
             husband: 'David',
             wife: 'Sophia',
-            imageHusband: 'assets/male.png',
-            imageWife: 'assets/female.png'
+            imageHusband: '',
+            imageWife: ''
           }
         }
       ]

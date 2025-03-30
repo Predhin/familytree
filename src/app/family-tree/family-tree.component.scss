@@ -1,26 +1,55 @@
 .family-node {
+  transition: all 0.3s ease;
+}
+
+.family-node {
+  animation: fadeInUp 0.5s ease-in-out;
+  transition: transform 0.3s ease;
+}
+
+.family-node:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  background: #f9f9f9;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding-top: 0;
+}
+
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+:host ::ng-deep .p-organizationchart .p-organizationchart-node-content {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background: #ffffff;
-  padding: 10px;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 180px;
 }
 
-.family-node img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-bottom: 5px;
+:host ::ng-deep .p-organizationchart-node-content > .family-node {
+  margin: 0.5rem;
 }
 
-.family-node span {
-  font-weight: bold;
-  display: block;
+:host ::ng-deep .p-organizationchart-node-content {
+  max-width: 100%;
+  word-wrap: break-word;
 }
-
-

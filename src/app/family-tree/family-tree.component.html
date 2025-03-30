@@ -1,56 +1,83 @@
-<p-organizationChart
-  [value]="familyTree()"
-  [collapsible]="true"
-  selectionMode="single"
-  (onNodeSelect)="onNodeSelect($event)"
-  [draggable]="true"
-  (onNodeDrop)="onNodeDrop($event)"
->
-  <ng-template let-node pTemplate="default">
-    <div class="family-node">
-      <i class="pi pi-user" style="font-size: 2rem; color: #007bff;"></i>
-      <span>{{ node.data?.husband }}</span>
-      <span>&</span>
-      <i class="pi pi-user" style="font-size: 2rem; color: #e91e63;"></i>
-      <span>{{ node.data?.wife }}</span>
-    </div>
-  </ng-template>
-</p-organizationChart>
-
-<p-dialog
+<div #treeContainer>
+  <p-organizationChart
+    [value]="familyTree()"
+    [collapsible]="true"
+    selectionMode="single"
+    (onNodeSelect)="onNodeSelect($event)"
+    [selection]="selectedNode"
+    (selectionChange)="selectedNode = $event"
+    [draggable]="true"
+    (onNodeDrop)="onNodeDrop($event)"
+  >
+    <ng-template let-node pTemplate="default">
+      <div
+        [ngClass]="{ 'animate__animated animate__zoomIn': !isExporting }"
+        class="family-node surface-card border-round shadow-3 p-3 text-center flex flex-column gap-2 w-full sm:w-15rem"
+      >
+        <div class="flex align-items-center justify-content-center gap-2">
+          <i
+            class="pi pi-user text-primary text-3xl"
+            pTooltip="Husband"
+            tooltipPosition="top"
+          ></i>
+          <span class="font-semibold text-md text-900">{{
+            node.data?.husband
+          }}</span>
+        </div>
+        <span class="text-500">&</span>
+        <div class="flex align-items-center justify-content-center gap-2">
+          <i
+            class="pi pi-user text-pink-500 text-3xl"
+            pTooltip="Wife"
+            tooltipPosition="top"
+          ></i>
+          <span class="font-semibold text-md text-900">{{
+            node.data?.wife
+          }}</span>
+        </div>
+      </div>
+    </ng-template>
+  </p-organizationChart>
+</div>
+<!-- Add Member Dialog -->
+<app-family-member-dialog
   [(visible)]="displayDialog"
-  [modal]="true"
-  [header]="isEditing ? 'Edit Member' : 'Add Member'"
+  [isEditing]="isEditing"
+  [form]="editForm"
+  (visibleChange)="onDialogVisibilityChanged($event)"
+  (submit)="isEditing ? saveMember() : addNewMember()"
+  (imageUpload)="onImageUpload($event.event, $event.isHusband)"
+></app-family-member-dialog>
+<div
+  class="fixed right-0 top-50 translate-y-n50 flex flex-column align-items-center gap-3 mr-3 z-5"
 >
-  <div>
-    <label>Husband:</label>
-    <input type="text" [(ngModel)]="editForm.husband" />
-  </div>
-  <div>
-    <label>Wife:</label>
-    <input type="text" [(ngModel)]="editForm.wife" />
-  </div>
-  <!-- You can still keep upload option for future photo support -->
-  <div>
-    <p-fileUpload
-      mode="basic"
-      accept="image/*"
-      (onSelect)="onImageUpload($event, true)"
-      chooseLabel="Husband Photo"
-    ></p-fileUpload>
-  </div>
-  <div>
-    <p-fileUpload
-      mode="basic"
-      accept="image/*"
-      (onSelect)="onImageUpload($event, false)"
-      chooseLabel="Wife Photo"
-    ></p-fileUpload>
-  </div>
+  <!-- Add Member (Primary) -->
   <button
     pButton
-    type="button"
-    [label]="isEditing ? 'Save' : 'Add'"
-    (click)="isEditing ? saveMember() : addNewMember()"
+    icon="pi pi-plus"
+    class="p-button-rounded p-button-primary p-button-lg shadow-4"
+    (click)="openAddDialog()"
+    pTooltip="Add New Family Member"
+    tooltipPosition="left"
   ></button>
-</p-dialog>
+
+  <!-- Export as Image -->
+  <button
+    pButton
+    icon="pi pi-image"
+    class="p-button-rounded p-button-secondary shadow-3"
+    (click)="exportTreeAsImage()"
+    pTooltip="Export as Image"
+    tooltipPosition="left"
+  ></button>
+
+  <!-- Export as PDF -->
+  <button
+    pButton
+    icon="pi pi-file-pdf"
+    class="p-button-rounded p-button-secondary shadow-3"
+    (click)="exportTreeAsPDF()"
+    pTooltip="Export as PDF"
+    tooltipPosition="left"
+  ></button>
+</div>
