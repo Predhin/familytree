@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+  margin: 0;
+  padding: 2rem;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(to bottom right, #f9fafb, #f1f5f9);
+  font-family: 'Segoe UI', sans-serif;
+}
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}

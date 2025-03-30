@@ -1,0 +1,86 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [header]="isEditing ? 'Edit Family Member' : 'Add New Member'"
+  [style]="{ width: '90vw', maxWidth: '500px' }"
+  (onHide)="closeDialog()"
+  contentStyleClass="pb-0"
+>
+  <div class="formgrid grid p-fluid">
+    <div class="field col-12 md:col-6">
+      <label for="husband" class="block mb-2 font-medium text-900"
+        >Husband</label
+      >
+      <input
+        id="husband"
+        type="text"
+        pInputText
+        class="w-full"
+        [(ngModel)]="form.husband"
+      />
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label for="wife" class="block mb-2 font-medium text-900">Wife</label>
+      <input
+        id="wife"
+        type="text"
+        pInputText
+        class="w-full"
+        [(ngModel)]="form.wife"
+      />
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label class="block mb-2 font-medium text-900">Husband Photo</label>
+      <p-fileUpload
+        mode="basic"
+        accept="image/*"
+        chooseLabel="Upload"
+        auto
+        class="w-full"
+        (onSelect)="onImageUpload($event, true)"
+      ></p-fileUpload>
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label class="block mb-2 font-medium text-900">Wife Photo</label>
+      <p-fileUpload
+        mode="basic"
+        accept="image/*"
+        chooseLabel="Upload"
+        auto
+        class="w-full"
+        (onSelect)="onImageUpload($event, false)"
+      ></p-fileUpload>
+    </div>
+
+    <!-- Preview: Husband -->
+    <div class="field col-12 md:col-6">
+      <label class="block mb-2 font-medium text-900">Preview:</label>
+      <div class="flex align-items-center gap-2">
+        <i class="pi pi-user text-primary text-4xl"></i>
+        <span class="text-lg text-900">{{ form.husband }}</span>
+      </div>
+    </div>
+
+    <!-- Preview: Wife -->
+    <div class="field col-12 md:col-6">
+      <label class="block mb-2 font-medium text-900">Preview:</label>
+      <div class="flex align-items-center gap-2">
+        <i class="pi pi-user text-pink-500 text-4xl"></i>
+        <span class="text-lg text-900">{{ form.wife }}</span>
+      </div>
+    </div>
+
+    <div class="col-12 flex justify-content-end mt-3 py-2">
+      <button
+        pButton
+        type="button"
+        class="p-button-primary"
+        [label]="isEditing ? 'Save' : 'Add Member'"
+        (click)="onSubmit()"
+      ></button>
+    </div>
+  </div>
+</p-dialog>
